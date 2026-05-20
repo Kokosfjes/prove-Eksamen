@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Lotus AS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('index') }}">Hjem</a>
+        <a href="{{ url_for('kontakt') }}">Kontakt</a>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('demo') }}">Demo</a>
+            <a href="{{ url_for('logout') }}">Logg ut</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Logg inn</a>
+        {% endif %}
+    </nav>
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% for m in messages %}<p class="flash">{{ m }}</p>{% endfor %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

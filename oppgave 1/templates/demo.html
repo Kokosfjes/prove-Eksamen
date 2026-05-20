@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Demo – HTML, CSS og JavaScript</h1>
+<p>Velkommen, {{ current_user.username }}!</p>
+
+<!-- Liten JS-demo: knapp som endrer tekst og farge -->
+<p id="melding" class="boks">Trykk på knappen.</p>
+<button onclick="endre()">Klikk meg</button>
+
+<script>
+function endre() {
+    const m = document.getElementById("melding");
+    m.textContent = "Du klikket! JavaScript fungerer.";
+    m.style.background = "#cfe";
+}
+</script>
+{% endblock %}
