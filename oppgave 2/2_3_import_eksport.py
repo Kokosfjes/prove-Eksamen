@@ -19,7 +19,7 @@ def lag_epost(navn, domene):
 
 
 # Les inn navn fra users.xlsx
-wb = load_workbook("../../users.xlsx")
+wb = load_workbook("C:\\Users\\Vebjørn\\OneDrive - Innlandet fylkeskommune\\Skrivebord\\prøveeksamen\\users.xlsx")
 ark = wb.active
 
 # Skriv til csv-fil
