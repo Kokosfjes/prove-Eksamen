@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>QA – Ofte stilte problemer</h1>
+<p>Her kan IT-avdelingen legge inn vanlige problemer og hvordan
+de løses, slik at brukere kan finne svar selv og slippe turen innom.</p>
+
+<form method="post">
+    <p><input name="problem" placeholder="Problem" required></p>
+    <p><input name="losning" placeholder="Løsning" required></p>
+    <p><button type="submit">Legg til</button></p>
+</form>
+
+<hr>
+
+{% for i in innlegg %}
+    <div class="boks">
+        <p><b>Problem:</b> {{ i.problem }}</p>
+        <p><b>Løsning:</b> {{ i.losning }}</p>
+        <p><small>Lagt til av {{ i.bruker }}</small></p>
+    </div>
+{% endfor %}
+{% endblock %}

@@ -25,6 +25,14 @@ class Melding(db.Model):
     bruker = db.Column(db.String(50), nullable=False)
 
 
+# QA: ofte stilte problemer og løsninger
+class QA(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    problem = db.Column(db.String(200), nullable=False)
+    losning = db.Column(db.String(500), nullable=False)
+    bruker = db.Column(db.String(50), nullable=False)
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -80,6 +88,23 @@ def meldinger():
         return redirect(url_for("meldinger"))
     alle = Melding.query.all()
     return render_template("meldinger.html", meldinger=alle)
+
+
+# QA - ofte stilte problemer og løsninger fra IT-avdelingen
+@app.route("/qa", methods=["GET", "POST"])
+@login_required
+def qa():
+    if request.method == "POST":
+        ny = QA(
+            problem=request.form["problem"],
+            losning=request.form["losning"],
+            bruker=current_user.username,
+        )
+        db.session.add(ny)
+        db.session.commit()
+        return redirect(url_for("qa"))
+    alle = QA.query.all()
+    return render_template("qa.html", innlegg=alle)
 
 
 if __name__ == "__main__":
