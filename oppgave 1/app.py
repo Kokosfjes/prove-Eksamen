@@ -18,6 +18,13 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(50), nullable=False)
 
 
+# Eksempel på ekstra lagring - viser at det er enkelt å utvide
+class Melding(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tekst = db.Column(db.String(200), nullable=False)
+    bruker = db.Column(db.String(50), nullable=False)
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -60,6 +67,19 @@ def logout():
 @login_required
 def demo():
     return render_template("demo.html")
+
+
+# Meldinger - demonstrerer lagring i databasen
+@app.route("/meldinger", methods=["GET", "POST"])
+@login_required
+def meldinger():
+    if request.method == "POST":
+        ny = Melding(tekst=request.form["tekst"], bruker=current_user.username)
+        db.session.add(ny)
+        db.session.commit()
+        return redirect(url_for("meldinger"))
+    alle = Melding.query.all()
+    return render_template("meldinger.html", meldinger=alle)
 
 
 if __name__ == "__main__":

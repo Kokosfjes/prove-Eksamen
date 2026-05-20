@@ -11,6 +11,7 @@
         <a href="{{ url_for('kontakt') }}">Kontakt</a>
         {% if current_user.is_authenticated %}
             <a href="{{ url_for('demo') }}">Demo</a>
+            <a href="{{ url_for('meldinger') }}">Meldinger</a>
             <a href="{{ url_for('logout') }}">Logg ut</a>
         {% else %}
             <a href="{{ url_for('login') }}">Logg inn</a>
